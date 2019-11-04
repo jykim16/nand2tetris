@@ -14,4 +14,18 @@ CHIP FullAdder {
 
     PARTS:
     // Put you code here:
+    HalfAdder(a=a,b=b,sum=bases,carry=carryForward0);
+    HalfAdder(a=bases,b=c,sum=sum,carry=carryForward1);
+    Or(a=carryForward0, b=carryForward1, out=carry);
 }
+
+//// Not optimized
+//  HalfAdder(a=b,b=c,sum=sum0,carry=carry0);
+//  Xor(a=b, b=c, out=notsum1);
+//  Not(in=notsum1, out=sum1);
+//  Or(a=b, b=c, out=carry1);
+//  Mux(a=sum0, b=sum1, sel=a, out=sum);
+//  Mux(a=carry0, b=carry1, sel=a, out=carry);
+//// This should be refactored to XNor
+// Xor(a=b, b=c, out=notsum1);
+//  Not(in=notsum1, out=sum1);
